@@ -94,7 +94,7 @@ public class ApiChatClient implements ChatClient {
             String url = BASE_URL + "/api/Chat/Login";
 
             HttpPost post = new HttpPost(url);
-            StringEntity body = new StringEntity(userName,
+            StringEntity body = new StringEntity(
                     "\""+userName+"\"",
                     "utf-8");
                     body.setContentType("application/json");

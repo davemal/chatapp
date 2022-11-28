@@ -29,6 +29,7 @@ public class JdbcDatabaseOperations implements DatabaseOperations{
         }
     }
 
+    //TODO dodělat získání zpráv z databáze
     @Override
     public List<Message> getMessages() {
         return null;

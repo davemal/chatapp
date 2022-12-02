@@ -25,8 +25,10 @@ public class Main {
         //dbInitializer.init();
 
         try {
-            DatabaseOperations databaseOperations = new JdbcDatabaseOperations(databaseDriver, databaseUrl);
-            //databaseOperations.addMessage(new Message("Dave", "Pokusný text"));
+//            DatabaseOperations databaseOperations = new JdbcDatabaseOperations(databaseDriver, databaseUrl);
+//            databaseOperations.addMessage(new Message("FrantaDave", "Pokusný text2"));
+//            List<Message> messages = databaseOperations.getMessages();
+//            System.out.println();
         }catch (Exception e){
             e.printStackTrace();
         }

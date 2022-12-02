@@ -24,9 +24,9 @@ public class CsvChatFileOperations implements ChatFileOperations{
             FileWriter writer = new FileWriter(MESSAGES_FILE);
             for (Message message : messages
             ) {
-                csvText = message.getAuthor() + ";" + message.getText() + ";" + message.getCreated() + System.getProperty("line.separator");
-                writer.write(csvText);
+                csvText += message.getAuthor() + ";" + message.getText() + ";" + message.getCreated() + System.getProperty("line.separator");
             }
+            writer.write(csvText);
             writer.flush();
             writer.close();
         } catch (IOException e) {
@@ -43,12 +43,17 @@ public class CsvChatFileOperations implements ChatFileOperations{
             BufferedReader bufferedReader = new BufferedReader(reader);
 
             List<Message> messages = new ArrayList<>();
-            while((bufferedReader.readLine() != null)){
-                String[] row = bufferedReader.readLine().split(";");
-                for(int i = 0; i < row.length; i++){
-                    messages.add(new Message(row[0], row[1], LocalDateTime.parse(row[2])));
-                }
+
+            String rowData = bufferedReader.readLine();
+
+            while((rowData != null)){
+
+                String[] row = rowData.split(";");
+                messages.add(new Message(row[0], row[1], LocalDateTime.parse(row[2])));
+
+                rowData = bufferedReader.readLine();
             }
+            bufferedReader.close();
             return messages;
         }catch (IOException e){
             e.printStackTrace();;

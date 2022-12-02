@@ -3,6 +3,8 @@ package models.database;
 import models.Message;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcDatabaseOperations implements DatabaseOperations{
@@ -32,6 +34,22 @@ public class JdbcDatabaseOperations implements DatabaseOperations{
     //TODO dodělat získání zpráv z databáze
     @Override
     public List<Message> getMessages() {
+        try {
+            String sql = "SELECT * FROM ChatMessages";
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            List<Message> messages = new ArrayList<>();
+            while(result.next()){
+                String author = result.getString("author");
+                String text = result.getString("text");
+                String created = result.getString("created");
+                messages.add(new Message(author, text, LocalDateTime.parse(created)));
+            }
+            statement.close();
+            return messages;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         return null;
     }
 }

@@ -4,6 +4,7 @@ import models.chatClients.FileChatClient;
 import models.chatClients.InMemoryChatClient;
 import models.chatClients.api.ApiChatClient;
 import models.chatClients.fileOperations.ChatFileOperations;
+import models.chatClients.fileOperations.CsvChatFileOperations;
 import models.chatClients.fileOperations.JsonChatFileOperations;
 import models.database.DatabaseOperations;
 import models.database.DbInitializer;
@@ -30,9 +31,10 @@ public class Main {
             e.printStackTrace();
         }
 
-        ChatFileOperations chatFileOperations = new JsonChatFileOperations();
+        ChatFileOperations chatFileOperations = new CsvChatFileOperations();
 
-        ChatClient chatClient = new ApiChatClient();
+        //ChatClient chatClient = new ApiChatClient();
+        ChatClient chatClient = new FileChatClient(chatFileOperations);
 
         Class<ApiChatClient> reflectionExample = ApiChatClient.class;
         System.out.println(reflectionExample.getSimpleName() + "|" + reflectionExample.getName());

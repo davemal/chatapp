@@ -4,6 +4,7 @@ import models.Message;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +40,12 @@ public class JdbcDatabaseOperations implements DatabaseOperations{
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(sql);
             List<Message> messages = new ArrayList<>();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSS"); //2022-12-04 15:26:38.4317137
             while(result.next()){
                 String author = result.getString("author");
                 String text = result.getString("text");
                 String created = result.getString("created");
-                messages.add(new Message(author, text, LocalDateTime.parse(created)));
+                messages.add(new Message(author, text, LocalDateTime.parse(created, formatter)));
             }
             statement.close();
             return messages;
